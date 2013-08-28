@@ -1,0 +1,10 @@
+{
+    "name": "13tbot",
+    "description": "utilitybot for 13tanks on freenode",
+    "version": "0.0.1",
+    "dependencies": {
+        "irc": "*",
+        "moment": "*",
+        "sandbox": "*"
+    }
+}

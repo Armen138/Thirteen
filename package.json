@@ -5,6 +5,7 @@
     "dependencies": {
         "irc": "*",
         "moment": "*",
-        "sandbox": "*"
+        "sandbox": "*",
+        "xml2js": "*"
     }
 }

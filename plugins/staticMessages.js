@@ -1,5 +1,4 @@
 var messages = {
-    "armen": "<3",
     "home": "http://13tanks.com",
     "chapter1": "http://13tanks.com/chapter1",
     "mdn": "https://developer.mozilla.org/"

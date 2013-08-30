@@ -4,8 +4,8 @@ var seen = require("./plugins/seen");
 var sysinfo = require("./plugins/sysinfo");
 var jsrun = require("./plugins/jsrun");
 var courtesy = require("./plugins/courtesy");
+var RSS = require("./plugins/rss");
 
-//bot.server = "192.168.47.146";
 bot.connect({
     "channels": ["#13tanks"],
     "port": 6667,
@@ -20,3 +20,7 @@ bot.register(sysinfo);
 bot.register(staticMessages);
 bot.register(courtesy);
 bot.register(jsrun);
+bot.register(RSS("armen138", "http://armen138.com/rss"));
+bot.register(RSS("html5rocks", "http://feeds.feedburner.com/html5rocks?format=xml"));
+bot.register(RSS("mozilla", "https://blog.mozilla.org/feed/"));
+

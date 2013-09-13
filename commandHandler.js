@@ -26,6 +26,9 @@ commandHandler.register = function(command, handler) {
     commands[command] = handler;
 };
 
+commandHandler.unregister = function(command) {
+    delete commands[command];
+};
 commandHandler.identifier = "!";
 
 module.exports = commandHandler;

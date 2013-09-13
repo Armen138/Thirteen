@@ -5,6 +5,14 @@ var bot;
 var thirteen = {
     server: "irc.freenode.net",
     name: "Thirteen",
+    unregister: function(p) {
+        for(var ircEvent in p.events) {
+            bot.removeListener(ircEvent, p.events[ircEvent]);
+        }
+        for(var ircCommand in p.commands) {
+            commandHandler.unregister(ircCommand);
+        }
+    },
     register: function(p) {
         for(var ircEvent in p.events) {
             bot.addListener(ircEvent, p.events[ircEvent]);

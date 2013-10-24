@@ -19,6 +19,13 @@ var seen = {
             };
             save();
         },
+        nick: function(oldnick, newnick, channels, message) {
+            nickStatus[oldnick] = {
+                message: oldnick + " changed his name to " + newnick,
+                time: Date.now()
+            };
+            save();
+        },
         part: function(channel, nick, reason) {
             nickStatus[nick] = {
                 message: nick + " left %t. Reason: " + reason,

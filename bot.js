@@ -4,7 +4,7 @@ var bot;
 
 var thirteen = {
     server: "irc.freenode.net",
-    name: "Thirteen",
+    name: "Thirteentest",
     unregister: function(p) {
         for(var ircEvent in p.events) {
             bot.removeListener(ircEvent, p.events[ircEvent]);
@@ -28,6 +28,11 @@ var thirteen = {
         bot.addListener("message#", function(from, to, text) {
             commandHandler({ nick: from, channel: to, message:text}, bot);
         });
+        //bot.addListener("join", function(channel, nick) {
+            //if(nick === thirteen.name) {
+                //bot.send("NAMES", channel);
+            //}
+        //});
     }
 };
 

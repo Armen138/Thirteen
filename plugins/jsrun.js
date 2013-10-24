@@ -5,8 +5,20 @@ var run = {
         "run": function(msg) {
             var code = msg.message.substr(5);
             sandbox.run(code, function(out) {
-                console.log(out);
-                run.bot.say(msg.channel, out.result);
+                var log = out.result;
+                if(log.length > 80) {
+                    log.length = 80;
+                    log += "[...]";
+                }
+                var cons = "console: " + out.console.join("\n");
+                if(cons.length > 80) {
+                    cons.length = 80;
+                    cons += "[...]";
+                }
+                run.bot.say(msg.channel, log);
+                if(out.console.length > 0) {
+                    run.bot.say(msg.channel, cons);
+                }
             });
         }
     }

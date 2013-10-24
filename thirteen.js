@@ -9,7 +9,8 @@ var RSS = require("./plugins/rss");
 
 bot.name = "Thirteen[test]";
 bot.connect({
-    "channels": ["#13tanks", "##gamedev"],
+    //"channels": ["#13tanks", "##gamedev"],
+    "channels": ["#13test"],
     "port": 6667,
     "showErrors": true,
     "debug": true,

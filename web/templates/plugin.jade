@@ -1,0 +1,36 @@
+doctype 5
+html(lang="en")
+  head
+    meta(charset="utf-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    meta(name="description", content="Thirteen IRC Bot")
+    meta(name="author", content="Armen138")
+    title= plugin.name
+    link(rel="stylesheet", href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css")
+    link(rel="stylesheet", href="css/bootstrap.min.css")
+    style(type='text/css') body { padding-top: 70px; }
+
+  body
+    div.navbar.navbar-default.navbar-fixed-top
+      div.container
+        div.navbar-header
+          button.navbar-toggle(type="button", data-toggle="collapse", data-target=".navbar-collapse")
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          a.navbar-brand(href="/") Thirteen
+        div.collapse.navbar-collapse
+          ul.nav.navbar-nav
+            li.active
+                a(href="#")= plugin.name
+            li
+                a(href="#about") About
+            li
+                a(href="#contact") Contact
+
+    div.container
+      div.content!= plugin.body
+
+    script(src="//code.jquery.com/jquery-1.10.1.min.js")
+    script(src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js")
+    script(src="js/main.js")

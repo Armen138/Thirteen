@@ -18,6 +18,18 @@ var karmaFactory = function(mention, karma, thanks) {
 };
 
 var karma = {
+    name: "Karma Plugin",
+    web: {
+        "karma": function(request, respond) {
+            //respond.end("Karma stuff.");
+            respond.render("plugin", {
+                "plugin": {
+                    "name": "Karma Plugin",
+                    "body": "<h1>Hello Warld</h1>"
+                }
+            });
+        }
+    },
     commands: {
         "karma": function(msg) {
             var text = msg.message;
@@ -59,7 +71,7 @@ var karma = {
             plusKarma = /\W*(\w+)\+\+/;
             minKarma = /\W*(\w+)\-\-/;
             mentionKarma = new RegExp("(" + Object.keys(karmaStatus).join("|") + ")");
-            thanksKarma = new RegExp("thank|thnx|thx|merci");
+            thanksKarma = new RegExp("thank|thnx|thx|merci|\\Wty\\W");
             var plusTest = plusKarma.exec(text);
             var minTest = minKarma.exec(text);
             if(plusTest) {

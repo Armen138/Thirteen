@@ -20,7 +20,8 @@ var Loader = function(bot) {
     var loader = {
         load: function(name) {
             if(!loaded[name]) {
-                loaded[name] = require("./plugins/" + name);                plugins.loaded.push(name);
+                loaded[name] = require("./plugins/" + name);
+                plugins.loaded.push(name);
                 save();
             } else {
                 bot.register(loaded[name]);

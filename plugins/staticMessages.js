@@ -1,11 +1,16 @@
 var messages = {
     "home": "http://13tanks.com",
-    "chapter1": "http://13tanks.com/chapter1",
     "mdn": "https://developer.mozilla.org/"
 };
 
 var handler = {
-    "commands": {}
+    "name": "Static Messages",
+    "commands": {},
+    "web": {
+        "messages": function(request, respond) {
+            respond.end(JSON.stringify(messages));
+        }
+    }
 };
 
 var handleCommand = function(msg) {

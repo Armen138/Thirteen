@@ -1,11 +1,12 @@
 {
-    "name": "13tbot",
-    "description": "utilitybot for 13tanks on freenode",
-    "version": "0.0.22",
-    "dependencies": {
-        "irc": "*",
-        "moment": "*",
-        "sandbox": "*",
-        "xml2js": "*"
+    "description"  : "utilitybot for 13tanks on freenode",
+    "version"      : "0.0.22",
+    "dependencies" : {
+        "irc"     : "*",
+        "moment"  : "*",
+        "sandbox" : "*",
+        "xml2js"  : "*",
+        "express" : "*",
+        "jade"    : "*"
     }
 }

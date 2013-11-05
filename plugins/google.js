@@ -8,7 +8,7 @@ var google = {
 
             var options = {
                 hostname: "ajax.googleapis.com",
-                post: 80,
+                port: 80,
                 path: "/ajax/services/search/web?v=1.0&q=" + encodeURIComponent(query),
                 method: "GET"
             };

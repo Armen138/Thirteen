@@ -22,6 +22,10 @@ var commandHandler = function(msg, bot) {
     }
 };
 
+commandHandler.exists = function(command) {
+    return !!commands[command];
+};
+
 commandHandler.register = function(command, handler) {
     commands[command] = handler;
 };

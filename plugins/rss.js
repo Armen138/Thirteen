@@ -16,8 +16,12 @@ var RSS = function(command, feed) {
         res.on("end", function() {
             xml.parseString(doc, function(err, result) {
                 //console.log(JSON.stringify(result));
-                console.log(result.rss.channel[0].item[0].title + ": " + result.rss.channel[0].item[0].link);
-                rss.bot.say(msg.channel, result.rss.channel[0].item[0].title + ": " + result.rss.channel[0].item[0].link);
+                if(result && result.rss) {
+                    console.log(result.rss.channel[0].item[0].title + ": " + result.rss.channel[0].item[0].link);
+                    rss.bot.say(msg.channel, result.rss.channel[0].item[0].title + ": " + result.rss.channel[0].item[0].link);
+                } else {
+                    rss.bot.say("Unable to fetch item from RSS feed!");
+                }
             });
         });
     };

@@ -23,11 +23,15 @@ var thirteen = {
         }
     },
     register: function(p) {
-        for(var ircEvent in p.events) {
-            bot.addListener(ircEvent, p.events[ircEvent]);
+        if(p.events) {
+            for(var ircEvent in p.events) {
+                bot.addListener(ircEvent, p.events[ircEvent]);
+            }
         }
-        for(var ircCommand in p.commands) {
-            commandHandler.register(ircCommand, p.commands[ircCommand]);
+        if(p.commands) {
+            for(var ircCommand in p.commands) {
+                commandHandler.register(ircCommand, p.commands[ircCommand]);
+            }
         }
         if(p.web) {
             for(var webPath in p.web) {
@@ -42,6 +46,7 @@ var thirteen = {
             }
         }
         p.bot = bot;
+        p.commandHandler = commandHandler;
     },
     connect: function(cfg) {
         bot = new irc.Client(thirteen.server, thirteen.name, cfg);

@@ -27,7 +27,9 @@ commandHandler.exists = function(command) {
 };
 
 commandHandler.register = function(command, handler) {
-    commands[command] = handler;
+    if(handler) {
+        commands[command] = handler;
+    }
 };
 
 commandHandler.unregister = function(command) {

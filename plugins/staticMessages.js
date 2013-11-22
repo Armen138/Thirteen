@@ -14,6 +14,17 @@ var save = function() {
 
 var makeAlias = function(command, args) {
     messages[command] = args;
+    var alias = args[0];
+    var chain = {};
+    while(messages[alias]) {
+        console.log("check: " + alias);
+        if(alias === command || chain[alias]) {
+            console.log("circular alias: " + command);
+            return false;
+        }
+        chain[alias] = true;
+        alias = messages[alias][0];
+    }
     save();
     return function(msg) {
         var text = msg.message.split(" ");
@@ -35,8 +46,13 @@ var handler = {
                 return "That command is already in use.";
             }
             console.log("command alias: " + command);
-            handler.commandHandler.register(command, makeAlias(command, args));
-            return "Alias recorded for " + command;
+            var alias = makeAlias(command, args);
+            if(alias) {
+                handler.commandHandler.register(command, alias);
+                return "Alias recorded for " + command;
+            } else {
+                return "Circular alias, aborting.";
+            }
         },
         "say": function (msg) {
             var txt = msg.message.split(" ");

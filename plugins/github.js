@@ -1,6 +1,6 @@
 var fs = require("fs");
 var https = require("https");
-var interval = 1; // minutes
+var interval = 10; // minutes
 
 var watchList = [];
 
@@ -49,11 +49,7 @@ var watch = function() {
     if(!watch.last) {
         watch.last = Date.now() - (interval * 60 * 1000);
     }
-    if(watch.last) {
-        console.log(new Date(watch.last));
-    }
     var report = function(where, commits) {
-        //console.log(commits);
         for(var i = 0; i < commits.length; i++) {
             var msg = "[" + where.target + "] commit by " + commits[i].commit.committer.name + ": " + commits[i].commit.message + " ( " + commits[i].url + " )";
             console.log(msg);

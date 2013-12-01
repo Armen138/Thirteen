@@ -1,11 +1,11 @@
 var fs = require("fs");
 var https = require("https");
-var interval = 10; // minutes
+var interval = 5; // minutes
 
 var watchList = [];
 
 if(fs.existsSync("data/github.json")) {
-    watchList = JSON.parse(fs.readFileSync("data/karma.json"));
+    watchList = JSON.parse(fs.readFileSync("data/github.json"));
 }
 
 var save = function() {
@@ -18,50 +18,60 @@ var api = {
         var options = {
             hostname: "api.github.com",
             port: 443,
-            path: "/repos/" + where.target + "/" + what + "?since=" + (new Date(watch.last).toISOString()),
+            path: "/repos/" + where.target + "/" + what + "?since=" + (new Date(where.last).toISOString()),
             method: "GET",
             headers: {
-                "User-Agent": "Thirteen IRC Bot, freenode, #13tanks, ##gamedev, @Armen138"
+                "User-Agent": "Thirteen IRC Bot, freenode, #13tanks, ##gamedev, @Armen138",
+                "If-None-Match": where.etag
             }
         };
-        console.log(options);
         var req = https.request(options, function(res) {
+            where.last = new Date(res.headers.date).getTime();
+            where.etag = res.headers.etag;
             var data = "";
-            res.on("data", function(chunk) {
-                data += chunk;
-            });
+            if(res.statusCode === 200) {
+                res.on("data", function(chunk) {
+                    data += chunk;
+                });
 
-            res.on("end", function() {
-                try {
-                    callback(where, JSON.parse(data));
-                } catch(e) {
-                    console.log("GITHUB API ERROR: " + e.message, data);
-                }
-            });
+                res.on("end", function() {
+                    try {
+                        callback(where, JSON.parse(data));
+                    } catch(e) {
+                        console.log("GITHUB API ERROR: " + e.message, data);
+                    }
+                });
+            } else {
+                //304, not changed. Doesn't count against rate limit.
+                //console.log("Github API returned status code: " + res.statusCode);
+            }
         });
         req.end();
-        console.log("getting " + where);
+        //console.log("getting " + where);
 
     }
 };
 
 var watch = function() {
-    if(!watch.last) {
-        watch.last = Date.now() - (interval * 60 * 1000);
-    }
     var report = function(where, commits) {
+        if(commits.length > 3) {
+            commits = commits.slice(0, 3);
+        }
         for(var i = 0; i < commits.length; i++) {
             var msg = "[" + where.target + "] commit by " + commits[i].commit.committer.name + ": " + commits[i].commit.message + " ( " + commits[i].url + " )";
-            console.log(msg);
+            //console.log(msg);
             if(gitHub.bot && gitHub.bot.connected) {
                 gitHub.bot.say(where.channel, msg);
             }
         }
     };
     for(var i = 0; i < watchList.length; i++) {
+        if(!watchList[i].last) {
+            watchList[i].last = Date.now() - (interval * 60 * 1000);
+        }
         api.get("commits", watchList[i], report);
     }
-    watch.last = Date.now();
+
     setTimeout(watch, interval * 60 * 1000);
 };
 

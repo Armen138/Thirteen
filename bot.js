@@ -54,6 +54,9 @@ var thirteen = {
         bot.addListener("message#", function(from, to, text) {
             commandHandler({ nick: from, channel: to, message:text}, bot);
         });
+        bot.addListener("join", function() {
+            bot.connected = true;
+        });
     }
 };
 app.get("/plugins", function(request, res) {

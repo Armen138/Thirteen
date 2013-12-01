@@ -5,8 +5,10 @@ var save = function() {
     fs.writeFileSync("data/plugins.json", JSON.stringify(plugins));
 };
 
-if(fs.existsSync("data/seen.json")) {
+if(fs.existsSync("data/plugins.json")) {
      plugins = JSON.parse(fs.readFileSync("data/plugins.json"));
+} else {
+    plugins.loaded = [];
 }
 
 for(var i = 0; i < plugins.loaded.length; i++) {

@@ -92,6 +92,10 @@ var karma = {
 
             var mentionTest = mentionKarma.exec(text);
             if(mentionTest) {
+                if(!karmaStatus[mentionTest[0]]) {
+                    console.log("karma error, heard " + mentionTest[0] + " but can't find corresponding karma");
+                    return;
+                }
                 var thanksTest = thanksKarma.exec(text);
                 if(thanksTest) {
                     karmaStatus[mentionTest[0]].thanks++;

@@ -97,6 +97,8 @@ var gitHub = {
                         }
                     }
                     return "I wasn't watching that.";
+                case "help":
+                    return "Usage: !gh command target - commands: watch, unwatch";
             }
         }
     }

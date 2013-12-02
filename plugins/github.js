@@ -58,7 +58,7 @@ var watch = function() {
             commits = commits.slice(0, 3);
         }
         for(var i = 0; i < commits.length; i++) {
-            var msg = "[" + where.target + "] commit by " + commits[i].commit.committer.name + ": " + commits[i].commit.message + " ( " + commits[i].url + " )";
+            var msg = "[" + where.target + "] commit by " + commits[i].commit.committer.name + ": " + commits[i].commit.message + " ( " + commits[i].html_url + " )";
             //console.log(msg);
             if(gitHub.bot && gitHub.bot.connected) {
                 gitHub.bot.say(where.channel, msg);

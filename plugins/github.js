@@ -1,6 +1,7 @@
 var fs = require("fs");
 var https = require("https");
-var interval = 5; // minutes
+var crumbs = require("../crumbs");
+var interval = 1; // minutes
 
 var watchList = [];
 
@@ -53,16 +54,26 @@ var api = {
 };
 
 var watch = function() {
+    var reportCommit = function(commit) {
+        crumbs(commit.html_url, function(url) {
+            var msg = "[" + where.target + "] commit by " + commit.commit.committer.name + ": " + commit.commit.message + " ( " + url + " )";
+            //console.log(msg);
+            if(gitHub.bot && gitHub.bot.connected) {
+                gitHub.bot.say(where.channel, msg);
+            }
+        });
+    };
     var report = function(where, commits) {
         if(commits.length > 3) {
             commits = commits.slice(0, 3);
         }
         for(var i = 0; i < commits.length; i++) {
-            var msg = "[" + where.target + "] commit by " + commits[i].commit.committer.name + ": " + commits[i].commit.message + " ( " + commits[i].html_url + " )";
-            //console.log(msg);
-            if(gitHub.bot && gitHub.bot.connected) {
-                gitHub.bot.say(where.channel, msg);
-            }
+            reportCommit(commits[i]);
+            //var msg = "[" + where.target + "] commit by " + commits[i].commit.committer.name + ": " + commits[i].commit.message + " ( " + commits[i].html_url + " )";
+            ////console.log(msg);
+            //if(gitHub.bot && gitHub.bot.connected) {
+                //gitHub.bot.say(where.channel, msg);
+            //}
         }
     };
     for(var i = 0; i < watchList.length; i++) {

@@ -11,8 +11,10 @@ var options = function(url) {
 };
 
 var crumbs = function(url, callback) {
-
-    var req = http.request(options(url), function(res) {
+    var opt = options(url);
+    console.log(opt);
+    var req = http.request(opt, function(res) {
+        console.log(res.statusCode);
         res.setEncoding("utf8");
 
         var data = "";

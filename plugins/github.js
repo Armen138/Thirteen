@@ -26,9 +26,11 @@ var api = {
                 "If-None-Match": where.etag
             }
         };
+        console.log(options);
         var req = https.request(options, function(res) {
             where.last = new Date(res.headers.date).getTime();
             where.etag = res.headers.etag;
+            console.log(res.headers);
             var data = "";
             if(res.statusCode === 200) {
                 res.on("data", function(chunk) {
@@ -54,7 +56,8 @@ var api = {
 };
 
 var watch = function() {
-    var reportCommit = function(commit) {
+    var reportCommit = function(where, commit) {
+        console.log("report commit, shortening url");
         crumbs(commit.html_url, function(url) {
             var msg = "[" + where.target + "] commit by " + commit.commit.committer.name + ": " + commit.commit.message + " ( " + url + " )";
             //console.log(msg);
@@ -68,7 +71,7 @@ var watch = function() {
             commits = commits.slice(0, 3);
         }
         for(var i = 0; i < commits.length; i++) {
-            reportCommit(commits[i]);
+            reportCommit(where, commits[i]);
             //var msg = "[" + where.target + "] commit by " + commits[i].commit.committer.name + ": " + commits[i].commit.message + " ( " + commits[i].html_url + " )";
             ////console.log(msg);
             //if(gitHub.bot && gitHub.bot.connected) {

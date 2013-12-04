@@ -1,7 +1,7 @@
 var fs = require("fs");
 var https = require("https");
-var crumbs = require("../crumbs");
-var interval = 1; // minutes
+var goo = require("../goo.gl");
+var interval = 3; // minutes
 
 var watchList = [];
 
@@ -58,7 +58,7 @@ var api = {
 var watch = function() {
     var reportCommit = function(where, commit) {
         console.log("report commit, shortening url");
-        crumbs(commit.html_url, function(url) {
+        goo(commit.html_url, function(url) {
             var msg = "[" + where.target + "] commit by " + commit.commit.committer.name + ": " + commit.commit.message + " ( " + url + " )";
             //console.log(msg);
             if(gitHub.bot && gitHub.bot.connected) {

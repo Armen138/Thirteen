@@ -16,6 +16,14 @@ var karmaFactory = function(mention, karma, thanks) {
         thanks: thanks || 0
     };
 };
+var regSafe = function(msg) {
+    var special = '[]().*+/';
+    for(var i = 0; i < special.length; i++) {
+        var rg = new RegExp('\\' + special[i], 'g');
+        msg = msg.replace(rg, '\\' + special[i]);
+    }
+    return msg;
+};
 
 var karma = {
     name: "Karma Plugin",
@@ -70,7 +78,7 @@ var karma = {
         "message#": function(nick, channel, text) {
             plusKarma = /\W*(\w+)\+\+/;
             minKarma = /\W*(\w+)\-\-/;
-            mentionKarma = new RegExp("(" + Object.keys(karmaStatus).join("|") + ")");
+            mentionKarma = new RegExp("(" + regSafe(Object.keys(karmaStatus).join("|")) + ")");
             thanksKarma = new RegExp("thank|thnx|thx|merci|\\Wty\\W");
             var plusTest = plusKarma.exec(text);
             var minTest = minKarma.exec(text);

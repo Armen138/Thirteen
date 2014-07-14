@@ -59,6 +59,10 @@ var watch = function() {
     var reportCommit = function(where, commit) {
         console.log("report commit, shortening url");
         goo(commit.html_url, function(url) {
+            var eol = commit.commit.message.indexOf("\n");
+            if(eol !== -1) {
+                commit.commit.message = commit.commit.message.substr(0, eol);
+            }
             var msg = "[" + where.target + "] commit by " + commit.commit.committer.name + ": " + commit.commit.message + " ( " + url + " )";
             //console.log(msg);
             if(gitHub.bot && gitHub.bot.connected) {

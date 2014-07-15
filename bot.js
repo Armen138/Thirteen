@@ -49,7 +49,7 @@ var thirteen = {
         p.commandHandler = commandHandler;
     },
     connect: function(cfg) {
-        bot = new irc.Client(thirteen.server, thirteen.name, cfg);
+        bot = new irc.Client(cfg.server || thirteen.server, thirteen.name, cfg);
         bot.name = thirteen.name;
         bot.addListener("message#", function(from, to, text) {
             commandHandler({ nick: from, channel: to, message:text}, bot);

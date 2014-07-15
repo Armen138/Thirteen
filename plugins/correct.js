@@ -26,7 +26,11 @@ var correct = {
             //}
             //regex to detect regexes
             //
+<<<<<<< HEAD
             var hasRegex = /(s\/.*?\/.*)[\/|\W]/;
+=======
+            var hasRegex = /^(s\/.*?\/.*)\/+$/;
+>>>>>>> 9aa25b95139269c53fa8f2d0ae53cffe7c289223
             try {
             var match = text.match(hasRegex);
                 if(match) {

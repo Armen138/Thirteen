@@ -2,8 +2,8 @@ var irc = require("irc");
 var commandHandler = require("./commandHandler");
 var express = require("express");
 var app = express();
-
-app.use(express.bodyParser());
+var bodyParser = require("body-parser");
+app.use(bodyParser.urlencoded());
 app.engine(".jade", require("jade").__express);
 app.set('views', __dirname + '/web/templates');
 app.set("view engine", "jade");

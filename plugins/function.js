@@ -162,7 +162,7 @@ var bootstrapCode = function() {
 var bootstrap = function(msg) {
     var args = msg.split(' ');
     args.shift();
-    var code = '';
+    var code = '$$ = "' + args.join(' ') + '";';
     for(var i = 0; i < args.length; i++) {
         code += '$' + (i + 1) + '="' + args[i] + '";';
     }

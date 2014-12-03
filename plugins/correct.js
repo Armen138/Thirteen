@@ -33,7 +33,7 @@ var correct = {
                     var replacement = match[1].split('/');
                     var correction = new RegExp(replacement[1]);
                     var log = logCycle.get(channel) || [];
-                    for(var i = 0; i < log.length; i++) {
+                    for(var i = log.length - 1; i >= 0; --i) {
                         if(!hasRegex.test(log[i].text) && correction.test(log[i].text)) {
                             console.log('this matches stuff.');
                             correct.bot.say(channel, '<' + log[i].nick + '> ' + log[i].text.replace(correction, replacement[2]));

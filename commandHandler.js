@@ -13,9 +13,13 @@ var commandHandler = function(msg, bot) {
     if(msg.message[0] === commandHandler.identifier) {
         var command = msg.message.split(" ")[0].substr(1);
         if(commands[command]) {
-            var result = commands[command](msg);
-            if(result) {
-                bot.say(msg.channel, result);
+            try {
+                var result = commands[command](msg);
+                if(result) {
+                    bot.say(msg.channel, result);
+                }
+            } catch(e) {
+                bot.say('error executing command: ' + e.message);
             }
             return;
         }

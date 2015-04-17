@@ -31,7 +31,4 @@ var main = function() {
     bot.name = config.nickname;
     bot.connect(config);
     var pluginLoader = PluginLoader(bot);
-    bot.register(RSS("armen138", "http://armen138.com/rss"));
-    bot.register(RSS("html5rocks", "http://feeds.feedburner.com/html5rocks?format=xml"));
-    bot.register(RSS("mozilla", "https://blog.mozilla.org/feed/"));
 };

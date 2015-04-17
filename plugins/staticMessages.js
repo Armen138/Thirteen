@@ -27,10 +27,15 @@ var makeAlias = function(command, args) {
     }
     save();
     return function(msg) {
+        try {
         var text = msg.message.split(" ");
         text.shift();
-        msg.message = "!" + args.join(" " ) + " " + text.join(" ");
+        msg.message = ("!" + args.join(" ") + " " + text.join(" ")).trim();
         handler.commandHandler(msg, handler.bot);
+        } catch(e) {
+            console.log('error executing alias');
+            handler.bot.say('error executing alias: ' + alias);
+        }
     };
 };
 

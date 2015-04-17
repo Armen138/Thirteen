@@ -74,7 +74,11 @@ var weather = {
             save();
             var current = new Weather(city);
             current.get(function(w) {
-                weather.bot.say(msg.channel, current.format(w));
+                if(w.message) {
+                    weather.bot.say(msg.channel, w.message);
+                } else {
+                    weather.bot.say(msg.channel, current.format(w));
+                }
             });
         }
     }
